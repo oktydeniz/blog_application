@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Blog App</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="password">password</string>
+    <string name="e_mail">e-mail</string>
+    <string name="blog_app">Blog App</string>
+    <string name="i_do_not_have_account">I don\'t have an account ! <u> Sing up </u> </string>
+    <string name="sing_up">Sing Up</string>
+    <string name="sing_in_btn">Sing In</string>
+    <string name="i_have_already_an_account">I have already an account</string>
+    <string name="confirmed">confirmed</string>
+    <string name="user_info">User Info</string>
+    <string name="select_photo">Select Photo</string>
+    <string name="name">name</string>
+    <string name="lastname">lastName</string>
+    <string name="continue_">continue</string>
+</resources>
