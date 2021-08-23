@@ -7,6 +7,7 @@ class Constants {
         private const val homeURL = "$mainURL/api"
         const val loginURL = "$homeURL/login"
         const val registerURL = "$homeURL/register"
+        const val saveUserInfoURL = "$homeURL/saveUserInfo"
     }
 
 }

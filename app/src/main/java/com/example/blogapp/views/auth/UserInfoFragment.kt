@@ -1,14 +1,19 @@
 package com.example.blogapp.views.auth
 
 import android.Manifest
+import android.app.Activity.MODE_PRIVATE
 import android.app.Activity.RESULT_OK
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.ImageDecoder
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Base64
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -18,8 +23,18 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.android.volley.DefaultRetryPolicy
+import com.android.volley.RequestQueue
+import com.android.volley.Response
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
+import com.example.blogapp.AppActivity
 import com.example.blogapp.databinding.FragmentUserInfoBinding
+import com.example.blogapp.network.Constants
 import com.google.android.material.snackbar.Snackbar
+import org.json.JSONObject
+import java.io.ByteArrayOutputStream
+import kotlin.collections.HashMap
 
 class UserInfoFragment : Fragment() {
     private var _binding: FragmentUserInfoBinding? = null
@@ -27,6 +42,9 @@ class UserInfoFragment : Fragment() {
     private lateinit var activityResultLauncher: ActivityResultLauncher<Intent>
     private lateinit var permissionLauncher: ActivityResultLauncher<String>
     private var selectedBitmap: Bitmap? = null
+    private var volley: RequestQueue? = null
+    private var userShared: SharedPreferences? = null 
+    private val TAG = "UserInfoFragment"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,6 +58,8 @@ class UserInfoFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         registerLauncher()
+        userShared = requireActivity().getSharedPreferences("user", MODE_PRIVATE)
+
         binding.selectProfilePhoto.setOnClickListener {
             selectImage(it)
         }
@@ -82,6 +102,71 @@ class UserInfoFragment : Fragment() {
     }
 
     private fun saveInfo() {
+        val name = binding.userInfoNameInput.text.toString()
+        val lastName = binding.userInfoLastNameInput.text.toString()
+        var str = ""
+        if (selectedBitmap != null) {
+            val byteArrayOutputStream = ByteArrayOutputStream()
+            selectedBitmap?.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream)
+            val bytArray = byteArrayOutputStream.toByteArray()
+            str = Base64.encodeToString(bytArray, Base64.DEFAULT)
+            Log.i(TAG, "saveInfo: $str")
+        }
+        sendRequest(name, lastName, str)
+    }
+
+    private fun sendRequest(name: String, lastName: String, str: String) {
+        volley = Volley.newRequestQueue(requireContext())
+        val strRequest: StringRequest = object : StringRequest(
+            Method.POST,
+            Constants.saveUserInfoURL,
+            Response.Listener { response ->
+                try {
+                    val responseObj = JSONObject(response)
+                    if (responseObj.getBoolean("success")) {
+                        val preferences =
+                            requireActivity().applicationContext.getSharedPreferences(
+                                "user",
+                                Context.MODE_PRIVATE
+                            )
+                        val editor = preferences.edit()
+                        editor.putString("photo", responseObj.getString("photo"))
+                        editor.apply()
+                        Toast.makeText(requireContext(), "Welcome $name ", Toast.LENGTH_SHORT)
+                            .show()
+                        startActivity(Intent(requireContext(), AppActivity::class.java))
+                        requireActivity().finish()
+                    }
+
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            },
+            Response.ErrorListener { error ->
+                Log.e(TAG, "problem occurred, volley error: " + error.message)
+            }) {
+            override fun getParams(): MutableMap<String, String> {
+                val map = HashMap<String, String>()
+                map["name"] = name
+                map["lastName"] = lastName
+                map["photo"] = str
+                return map
+
+            }
+
+            override fun getHeaders(): MutableMap<String, String> {
+                val token = userShared?.getString("token", "")
+                val map = HashMap<String, String>()
+                map["Authorization"] = "Bearer $token"
+                return map
+            }
+
+        }
+        strRequest.retryPolicy = DefaultRetryPolicy(
+            DefaultRetryPolicy.DEFAULT_TIMEOUT_MS, 0, 1f
+        )
+        volley?.add(strRequest)
+
 
     }
 
