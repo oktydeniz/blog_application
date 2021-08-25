@@ -14,4 +14,8 @@
     <string name="name">name</string>
     <string name="lastname">lastName</string>
     <string name="continue_">continue</string>
+
+
+    <string name="generic_likes"> %s Likes </string>
+    <string name="generic_comments"> View all %s comments  </string>
 </resources>

@@ -14,4 +14,10 @@
         <!-- Customize your theme here. -->
         <item name="fontFamily">@font/leckerli_one_regular</item>
     </style>
+
+    <style name="Theme.BottomAppBar" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
 </resources>
