@@ -1,6 +1,7 @@
 package com.example.blogapp.util
 
 import android.content.Context
+import android.util.Log
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
@@ -28,6 +29,8 @@ fun placeHolderProgressBar(c: Context): CircularProgressDrawable {
 
 @BindingAdapter("android:downloadUrl")
 fun downloadImage(v: ImageView, url: String?) {
-    val allUrl = "http://192.168.1.63:8000/storage/posts/$url"
+    val allUrl = "http://192.168.1.63:8000/storage/profiles/$url"
+    Log.i("Download Image ", "downloadImage: DownloadImg : $allUrl")
+    //TODO::Fix the photo url for posts and profiles photos and urls all the same in php codes and here
     v.downloadFromUrl(allUrl, placeHolderProgressBar(v.context))
 }

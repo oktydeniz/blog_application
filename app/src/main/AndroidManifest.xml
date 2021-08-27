@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
 
     <application
@@ -16,10 +17,9 @@
         android:usesCleartextTraffic="true">
         <activity
             android:name=".AppActivity"
-            android:exported="true" />
+            android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".MainActivity"
-            android:exported="true">
+            android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

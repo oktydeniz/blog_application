@@ -1,69 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".AppActivity">
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <fragment
+        android:id="@+id/fragmentContainerView2"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:defaultNavHost="true"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation_view_home"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navGraph="@navigation/app_nav" />
+
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation_view_home"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentBottom="true"
-        android:id="@+id/coordinator_view"
-        android:fitsSystemWindows="false"
-        android:clickable="false"
-        android:focusable="false">
-
-        <com.google.android.material.bottomappbar.BottomAppBar
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/bottom_app"
-            android:layout_gravity="bottom"
-
-            android:clickable="false"
-            app:fabAlignmentMode="center"
-            app:fabCradleRoundedCornerRadius="16dp"
-            android:theme="@style/Theme.BottomAppBar"
-            app:contentInsetStart="0dp"
-            app:contentInsetStartWithNavigation="0dp"
-            android:background="@android:color/transparent">
-
-            <com.google.android.material.bottomnavigation.BottomNavigationView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/bottom_nav"
-                android:background="@android:color/transparent"
-                app:labelVisibilityMode="unlabeled"
-                app:menu="@menu/main_menu"
-                android:outlineAmbientShadowColor="@android:color/transparent"
-                android:outlineSpotShadowColor="@android:color/transparent"/>
-
-        </com.google.android.material.bottomappbar.BottomAppBar>
-
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:layout_width="wrap_content"
-            android:id="@+id/fab"
-            android:backgroundTint="@color/colorPrimary"
-            app:rippleColor="@color/colorWhite"
-            android:src="@drawable/ic_baseline_add_24"
-            app:tint="@color/colorWhite"
-            app:layout_anchor="@id/bottom_app"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/app_name" />
-
-        <fragment
-            android:id="@+id/fragmentContainerView2"
-            android:name="androidx.navigation.fragment.NavHostFragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:defaultNavHost="true"
-            app:navGraph="@navigation/app_nav" />
-
-
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+        android:layout_height="wrap_content"
+        android:elevation="8dp"
+        android:theme="@style/Theme.BottomAppBar"
+        app:labelVisibilityMode="unlabeled"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/main_menu" />
 
 
 
-</RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
