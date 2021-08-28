@@ -15,7 +15,6 @@
     <string name="lastname">lastName</string>
     <string name="continue_">continue</string>
 
-
     <string name="generic_likes"> %s Likes </string>
     <string name="generic_comments"> View all %s comments  </string>
     <string name="some_thing_wrong">Some thing wrong</string>

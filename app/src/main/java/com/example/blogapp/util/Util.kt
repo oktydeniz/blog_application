@@ -30,7 +30,13 @@ fun placeHolderProgressBar(c: Context): CircularProgressDrawable {
 @BindingAdapter("android:downloadUrl")
 fun downloadImage(v: ImageView, url: String?) {
     val allUrl = "http://192.168.1.63:8000/storage/profiles/$url"
-    Log.i("Download Image ", "downloadImage: DownloadImg : $allUrl")
-    //TODO::Fix the photo url for posts and profiles photos and urls all the same in php codes and here
+    Log.i("Download Image", "downloadImage: DownloadImg Prof : $allUrl")
+    v.downloadFromUrl(allUrl, placeHolderProgressBar(v.context))
+}
+
+@BindingAdapter("android:downloadUrlPost")
+fun downloadImagePost(v: ImageView, url: String?) {
+    val allUrl = "http://192.168.1.63:8000/storage/posts/$url"
+    Log.i("Download Image", "downloadImage: DownloadImg : $allUrl")
     v.downloadFromUrl(allUrl, placeHolderProgressBar(v.context))
 }
