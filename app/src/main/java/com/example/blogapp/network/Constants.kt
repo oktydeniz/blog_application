@@ -9,6 +9,7 @@ class Constants {
         const val registerURL = "$homeURL/register"
         const val saveUserInfoURL = "$homeURL/saveUserInfo"
         const val posts = "$homeURL/posts"
+        const val  createPost = "$homeURL/posts/create"
 
     }
 

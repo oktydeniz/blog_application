@@ -18,4 +18,10 @@
     <string name="generic_likes"> %s Likes </string>
     <string name="generic_comments"> View all %s comments  </string>
     <string name="some_thing_wrong">Some thing wrong</string>
+    <string name="send">Send</string>
+    <string name="start_writing">start writing</string>
+    <string name="home">Home</string>
+    <string name="profile">Profile</string>
+    <string name="post">Post</string>
+    <string name="search">Search</string>
 </resources>

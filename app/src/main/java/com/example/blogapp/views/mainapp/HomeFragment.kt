@@ -1,22 +1,36 @@
 package com.example.blogapp.views.mainapp
 
 import android.os.Bundle
+import android.util.Log
+import android.view.*
+import android.widget.EditText
+import android.widget.SearchView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import com.example.blogapp.R
 import com.example.blogapp.adapter.PostsAdapter
 import com.example.blogapp.databinding.FragmentHomeBinding
+import com.example.blogapp.model.Post
 import com.example.blogapp.viewmodel.HomeViewModel
+import java.util.*
+import kotlin.collections.ArrayList
 
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private lateinit var viewModel: HomeViewModel
+    private var arrayList = ArrayList<Post>()
+    private var displayList = ArrayList<Post>()
+    private var mainList = ArrayList<Post>()
     private lateinit var adapter: PostsAdapter
+    private  val TAG = "HomeFragment"
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,8 +52,8 @@ class HomeFragment : Fragment() {
         viewModel.postMLDModel.observe(viewLifecycleOwner, {
             it.let {
                 binding.allPostsRecyclerView.visibility = View.VISIBLE
-                adapter = PostsAdapter(it)
-                binding.allPostsRecyclerView.adapter = adapter
+                arrayList.addAll(it)
+                setAdapter(it)
             }
 
         })
@@ -61,6 +75,50 @@ class HomeFragment : Fragment() {
                 }
             }
         })
+    }
+
+    private fun setAdapter(model: ArrayList<Post>) {
+        adapter = PostsAdapter(model)
+        binding.allPostsRecyclerView.adapter = adapter
+        binding.allPostsRecyclerView.adapter!!.notifyDataSetChanged()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.search_menu, menu)
+        val menuItem = menu.findItem(R.id.search_src_text)
+        if (menuItem != null) {
+            val searchView = menuItem.actionView as SearchView
+            val editText =
+                searchView.findViewById<EditText>(androidx.appcompat.R.id.search_src_text)
+            editText.hint = "Search..."
+
+            searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String): Boolean {
+                    return true
+                }
+
+                override fun onQueryTextChange(newText: String): Boolean {
+                    if (newText.isNotEmpty()) {
+                        displayList.clear()
+                        val search = newText.lowercase(Locale.getDefault())
+                        arrayList.forEach {
+                            if (it.desc.lowercase(Locale.getDefault()).contains(search)) {
+                                displayList.add(it)
+                                Log.i(TAG, "onQueryTextChange:  $it")
+                            }
+                        }
+
+                    } else {
+                        displayList.clear()
+                        displayList.addAll(arrayList)
+                    }
+                    return true
+                }
+            })
+        }
+
+
     }
 
     override fun onDestroy() {

@@ -11,6 +11,7 @@ class AppActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_app_activiyt)
+
         init()
     }
 
@@ -18,5 +19,11 @@ class AppActivity : AppCompatActivity() {
         navBottomView = findViewById(R.id.bottom_navigation_view_home)
         val navCont = Navigation.findNavController(this@AppActivity, R.id.fragmentContainerView2)
         NavigationUI.setupWithNavController(navBottomView, navCont)
+        NavigationUI.setupActionBarWithNavController(this, navCont)
+
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        return super.onSupportNavigateUp()
     }
 }
