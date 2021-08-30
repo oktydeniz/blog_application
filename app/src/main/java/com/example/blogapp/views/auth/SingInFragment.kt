@@ -69,6 +69,7 @@ class SingInFragment : Fragment() {
                         val editor = preferences.edit()
                         editor.putString("token", responseObj.getString("token"))
                         editor.putString("name", jsonObject.getString("name"))
+                        editor.putInt("id", jsonObject.getInt("id"))
                         editor.putString("lastName", jsonObject.getString("lastName"))
                         editor.putString("photo", jsonObject.getString("photo"))
                         editor.putBoolean("isLoggedIn",true)

@@ -1,5 +1,7 @@
 package com.example.blogapp.model
 
+import java.io.Serializable
+
 data class Post(
     var id: Int,
     var likes: Int,
@@ -9,4 +11,4 @@ data class Post(
     var photo: String,
     var user: User,
     var selfLike: Boolean
-)
+):Serializable

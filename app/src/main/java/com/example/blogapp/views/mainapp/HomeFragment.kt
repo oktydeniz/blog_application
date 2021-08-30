@@ -1,11 +1,7 @@
 package com.example.blogapp.views.mainapp
 
 import android.os.Bundle
-import android.util.Log
 import android.view.*
-import android.widget.EditText
-import android.widget.SearchView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.blogapp.R
@@ -13,8 +9,6 @@ import com.example.blogapp.adapter.PostsAdapter
 import com.example.blogapp.databinding.FragmentHomeBinding
 import com.example.blogapp.model.Post
 import com.example.blogapp.viewmodel.HomeViewModel
-import java.util.*
-import kotlin.collections.ArrayList
 
 class HomeFragment : Fragment() {
 
@@ -25,7 +19,6 @@ class HomeFragment : Fragment() {
     private var displayList = ArrayList<Post>()
     private var mainList = ArrayList<Post>()
     private lateinit var adapter: PostsAdapter
-    private  val TAG = "HomeFragment"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -80,13 +73,13 @@ class HomeFragment : Fragment() {
     private fun setAdapter(model: ArrayList<Post>) {
         adapter = PostsAdapter(model)
         binding.allPostsRecyclerView.adapter = adapter
-        binding.allPostsRecyclerView.adapter!!.notifyDataSetChanged()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
+
         inflater.inflate(R.menu.search_menu, menu)
-        val menuItem = menu.findItem(R.id.search_src_text)
+       /* val menuItem = menu.findItem(R.id.search_src_text)
         if (menuItem != null) {
             val searchView = menuItem.actionView as SearchView
             val editText =
@@ -116,7 +109,7 @@ class HomeFragment : Fragment() {
                     return true
                 }
             })
-        }
+        }*/
 
 
     }
