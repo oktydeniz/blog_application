@@ -1,14 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".views.mainapp.EditPostFragment">
 
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
+    <data>
+
+        <variable
+            name="post"
+            type="com.example.blogapp.model.Post" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:id="@+id/editPostArea"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        tools:context=".views.mainapp.EditPostFragment">
 
-</FrameLayout>
+        <ImageView
+            android:id="@+id/postItem"
+            android:layout_width="253dp"
+            android:layout_height="183dp"
+            android:layout_marginTop="32dp"
+            android:contentDescription="@{post.desc}"
+            android:downloadUrlPost="@{post.photo}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@tools:sample/avatars" />
+
+        <EditText
+            android:id="@+id/newPostUpdate"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_marginTop="32dp"
+            android:autofillHints="name"
+            android:background="@drawable/text_background"
+            android:ems="10"
+            android:hint="@string/start_writing"
+            android:inputType="textMultiLine"
+            android:text="@{post.desc}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/postItem" />
+
+        <Button
+            android:id="@+id/updateBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="32dp"
+            android:text="@string/update_post"
+            android:textAllCaps="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/newPostUpdate" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

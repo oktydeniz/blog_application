@@ -10,6 +10,8 @@ class Constants {
         const val saveUserInfoURL = "$homeURL/saveUserInfo"
         const val posts = "$homeURL/posts"
         const val  createPost = "$homeURL/posts/create"
+        const val  updatePost = "$homeURL/posts/update"
+        const val  deletePost = "$homeURL/posts/delete"
 
     }
 
