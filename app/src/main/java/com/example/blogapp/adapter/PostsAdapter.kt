@@ -49,7 +49,7 @@ class PostsAdapter(
             menu.inflate(R.menu.pop_up_options)
             menu.setOnMenuItemClickListener {
                 if (it.itemId == R.id.optionDelete) {
-                    deletePost(post.id, position)
+                    deletePost(post.id)
                 }
                 if (it.itemId == R.id.optionEdit) {
                     val direction =
@@ -61,9 +61,62 @@ class PostsAdapter(
             }
             menu.show()
         }
+        holder.v.btnPostLike.setOnClickListener {
+            holder.v.btnPostLike.setImageResource(
+                if (post.selfLike) R.drawable.ic_baseline_favorite_border_24 else R.drawable.ic_baseline_favorite_24
+            )
+            val volley = Volley.newRequestQueue(c)
+            val request: StringRequest = object : StringRequest(
+                Method.POST,
+                Constants.likePost,
+                Response.Listener { response ->
+
+                    try {
+                        val jsonObject = JSONObject(response)
+                        if (jsonObject.getBoolean("success")) {
+                            post.selfLike = !post.selfLike
+                            post.likes = if (post.selfLike) post.likes + 1 else post.likes - 1
+                            list[position] = post
+                            notifyItemChanged(position)
+                            notifyDataSetChanged()
+                        }
+                        else{
+                            holder.v.btnPostLike.setImageResource(
+                                if (post.selfLike) R.drawable.ic_baseline_favorite_24 else R.drawable.ic_baseline_favorite_border_24
+                            )
+                        }
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
+
+                }, Response.ErrorListener {
+                    Toast.makeText(c, it.localizedMessage, Toast.LENGTH_SHORT).show()
+
+                }
+            ) {
+                override fun getHeaders(): MutableMap<String, String> {
+                    val map = HashMap<String, String>()
+                    val token =
+                        c?.getSharedPreferences("user", Context.MODE_PRIVATE)
+                            ?.getString("token", "")
+                    map["Authorization"] = "Bearer $token"
+                    return map
+                }
+
+                override fun getParams(): MutableMap<String, String> {
+                    val map = HashMap<String, String>()
+                    map["id"] = "${post.id}"
+                    return map
+                }
+            }
+            request.retryPolicy = DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS, 0, 1f)
+            volley?.add(request)
+
+        }
+
     }
 
-    private fun deletePost(id: Int, position: Int) {
+    private fun deletePost(id: Int) {
         val builder = AlertDialog.Builder(c)
         builder.setTitle("Confirm")
         builder.setMessage("Delete Post ? ")
