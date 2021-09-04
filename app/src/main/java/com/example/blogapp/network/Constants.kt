@@ -13,6 +13,7 @@ class Constants {
         const val  updatePost = "$homeURL/posts/update"
         const val  deletePost = "$homeURL/posts/delete"
         const val  likePost = "$homeURL/posts/likes"
+        const val  comments = "$homeURL/posts/comments"
 
     }
 

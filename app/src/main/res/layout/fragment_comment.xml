@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".views.mainapp.CommentFragment">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerComments"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="?attr/actionBarSize"
+        app:spanCount="1"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorWhite"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/txtAddComment"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:textColorHint="@color/black"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="6dp"
+            android:layout_marginBottom="4dp"
+            android:layout_weight="1"
+            android:autofillHints="name"
+            android:hint="@string/start_writing"
+            android:inputType="textMultiLine"
+            android:textSize="16sp" />
+
+        <ImageButton
+            android:id="@+id/btnAddComment"
+            android:layout_width="70dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="6dp"
+            android:background="@drawable/btn_round"
+            android:contentDescription="@string/send"
+            android:src="@drawable/ic_baseline_send_24" />
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/progressComment"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/commentWrongText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text="@string/some_thing_wrong"
+        android:visibility="gone" />
+
+</RelativeLayout>

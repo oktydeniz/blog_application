@@ -38,6 +38,7 @@ class PostsAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val post = list[position]
         holder.v.post = post
+        holder.v.executePendingBindings()
         val id = c?.getSharedPreferences("user", Context.MODE_PRIVATE)?.getInt("id", 0)
         if (id == post.user.id) {
             holder.v.btnPostOption.visibility = View.VISIBLE
@@ -79,8 +80,7 @@ class PostsAdapter(
                             list[position] = post
                             notifyItemChanged(position)
                             notifyDataSetChanged()
-                        }
-                        else{
+                        } else {
                             holder.v.btnPostLike.setImageResource(
                                 if (post.selfLike) R.drawable.ic_baseline_favorite_24 else R.drawable.ic_baseline_favorite_border_24
                             )
@@ -112,6 +112,16 @@ class PostsAdapter(
             request.retryPolicy = DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS, 0, 1f)
             volley?.add(request)
 
+        }
+        holder.v.btnPostComment.setOnClickListener {
+            val navigation =
+                HomeFragmentDirections.actionHomeFragmentToCommentFragment(post.id)
+            Navigation.findNavController(it).navigate(navigation)
+        }
+        holder.v.txtPostComments.setOnClickListener {
+            val navigation =
+                HomeFragmentDirections.actionHomeFragmentToCommentFragment(post.id)
+            Navigation.findNavController(it).navigate(navigation)
         }
 
     }
