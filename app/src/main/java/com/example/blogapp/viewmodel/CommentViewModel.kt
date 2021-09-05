@@ -40,14 +40,14 @@ class CommentViewModel(application: Application) : BaseViewModel(application) {
     private fun getData(id: Int) {
         launch {
             val strRequest: StringRequest = object : StringRequest(
-                Method.GET,
+                Method.POST,
                 Constants.comments,
                 Response.Listener { res ->
                     try {
                         val responseObject = JSONObject(res)
                         if (responseObject.getBoolean("success")) {
                             val arrayJson = JSONArray(responseObject.getString("comments"))
-                            for (i in 0 until (arrayJson.length())) {
+                            for (i in 0 until arrayJson.length()) {
                                 val commentObject = arrayJson.getJSONObject(i)
                                 val userObject = commentObject.getJSONObject("user")
 
@@ -87,12 +87,18 @@ class CommentViewModel(application: Application) : BaseViewModel(application) {
                 override fun getHeaders(): MutableMap<String, String> {
                     val map = HashMap<String, String>()
                     map["Authorization"] = "Bearer $sharedPreferences"
+                    Log.i("  CommentViewModel Authorization",
+                        "getHeaders:  Bearer $sharedPreferences"
+                    )
                     return map
                 }
 
                 override fun getParams(): MutableMap<String, String> {
                     val map = HashMap<String, String>()
                     map["id"] = "$id"
+                    Log.i("  CommentViewModel Authorization",
+                        "getHeaders:  Bearer $id"
+                    )
                     return map
                 }
 
