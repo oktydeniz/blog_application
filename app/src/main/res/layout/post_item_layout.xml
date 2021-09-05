@@ -143,7 +143,7 @@
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="4dp"
                 android:layout_marginBottom="20dp"
-                android:text="@{@string/generic_likes(String.valueOf(post.comments))}"
+                android:text="@{@string/generic_comments(String.valueOf(post.comments))}"
                 android:textColor="@color/colorLightGrey"
                 android:textSize="12sp" />
 

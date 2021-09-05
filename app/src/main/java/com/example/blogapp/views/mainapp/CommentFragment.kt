@@ -9,10 +9,8 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import com.example.blogapp.adapter.CommentAdapter
-import com.example.blogapp.adapter.PostsAdapter
 import com.example.blogapp.databinding.FragmentCommentBinding
 import com.example.blogapp.model.Comment
-import com.example.blogapp.model.Post
 import com.example.blogapp.viewmodel.CommentViewModel
 
 class CommentFragment : Fragment() {
@@ -22,7 +20,7 @@ class CommentFragment : Fragment() {
     private var post: Int? = null
     private lateinit var viewModel: CommentViewModel
     private var arrayList = ArrayList<Comment>()
-    private  val TAG = "CommentFragment"
+    private val TAG = "CommentFragment"
     private lateinit var adapter: CommentAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -33,6 +31,14 @@ class CommentFragment : Fragment() {
             viewModel.getComment(post!!)
             Log.i(TAG, "onViewCreated:  $post")
             observeData()
+        }
+        binding.btnAddComment.setOnClickListener {
+            val comment = binding.txtAddComment.text.toString()
+            if (comment.isNotEmpty()) viewModel.sendComment(
+                post!!,
+                comment
+            ) else binding.txtAddComment.error =
+                "It can not be null"
         }
 
 

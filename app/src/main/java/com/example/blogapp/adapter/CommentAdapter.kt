@@ -2,6 +2,7 @@ package com.example.blogapp.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.blogapp.databinding.LoyoutCommentItemBinding
@@ -23,7 +24,13 @@ class CommentAdapter(private val list: ArrayList<Comment>) :
         holder.v.comment = comment
         holder.v.executePendingBindings()
 
-
+        if (context.getSharedPreferences("user", Context.MODE_PRIVATE)
+                .getInt("id", 0) != comment.user.id
+        ) {
+            holder.v.btnDeleteComment.visibility = View.GONE
+        } else {
+            holder.v.btnDeleteComment.visibility = View.VISIBLE
+        }
     }
 
     override fun getItemCount(): Int {

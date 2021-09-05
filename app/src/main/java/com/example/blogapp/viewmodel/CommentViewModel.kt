@@ -87,7 +87,8 @@ class CommentViewModel(application: Application) : BaseViewModel(application) {
                 override fun getHeaders(): MutableMap<String, String> {
                     val map = HashMap<String, String>()
                     map["Authorization"] = "Bearer $sharedPreferences"
-                    Log.i("  CommentViewModel Authorization",
+                    Log.i(
+                        "  CommentViewModel Authorization",
                         "getHeaders:  Bearer $sharedPreferences"
                     )
                     return map
@@ -96,7 +97,8 @@ class CommentViewModel(application: Application) : BaseViewModel(application) {
                 override fun getParams(): MutableMap<String, String> {
                     val map = HashMap<String, String>()
                     map["id"] = "$id"
-                    Log.i("  CommentViewModel Authorization",
+                    Log.i(
+                        "  CommentViewModel Authorization",
                         "getHeaders:  Bearer $id"
                     )
                     return map
@@ -109,5 +111,70 @@ class CommentViewModel(application: Application) : BaseViewModel(application) {
             )
             volleyRequest.add(strRequest)
         }
+    }
+
+    fun sendComment(postId: Int, comment: String) {
+        launch {
+            val stringRequest: StringRequest =
+                object : StringRequest(
+                    Method.POST,
+                    Constants.createComments,
+                    Response.Listener { response ->
+                        try {
+                            val jsonObject = JSONObject(response)
+                            if (jsonObject.getBoolean("success")) {
+                                val newComment = jsonObject.getJSONObject("comment")
+                                val user = newComment.getJSONObject("user")
+                                val userNew = User(
+                                    user.getInt("id"),
+                                    (user.getString("name") + " " + user.getString("lastName")),
+                                    user.getString("photo")
+                                )
+                                Log.i("CommentViewModel", "get.user: $user")
+                                val commentNew = Comment(
+                                    newComment.getInt("id"),
+                                    newComment.getString("comment"),
+                                    newComment.getString("created_at"),
+                                    userNew
+                                )
+                                commentList.add(commentNew)
+                                commentLiveData.value = commentList
+                            }
+
+                        } catch (e: Exception) {
+                            e.printStackTrace()
+                            Log.e(
+                                "CommentViewModel new Comment",
+                                "problem occurred, volley error: " + e.message
+                            )
+                        }
+                    },
+                    Response.ErrorListener {
+                        Log.e(
+                            "CommentViewModel new Comment",
+                            "problem occurred, volley error: " + it.message
+                        )
+                    }) {
+                    override fun getParams(): MutableMap<String, String> {
+                        val map = HashMap<String, String>()
+                        map["post_id"] = "$postId"
+                        map["comment"] = comment
+                        return map
+
+                    }
+
+                    override fun getHeaders(): MutableMap<String, String> {
+                        val map = HashMap<String, String>()
+                        map["Authorization"] = "Bearer $sharedPreferences"
+                        return map
+                    }
+                }
+
+            stringRequest.retryPolicy = DefaultRetryPolicy(
+                DefaultRetryPolicy.DEFAULT_TIMEOUT_MS, 0, 1f
+            )
+            volleyRequest.add(stringRequest)
+        }
+
     }
 }
