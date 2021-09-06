@@ -51,7 +51,7 @@ class SingUpFragment : Fragment() {
                     Log.i(TAG, "init: ${Constants.registerURL}")
                     val responseObj = JSONObject(response)
                     if (responseObj.getBoolean("success")) {
-                        val jsonObject = responseObj.getJSONObject("user")
+                      //  val jsonObject = responseObj.getJSONObject("user")
                         val preferences =
                             requireActivity().applicationContext.getSharedPreferences(
                                 "user",

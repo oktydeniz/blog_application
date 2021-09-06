@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
 import com.example.blogapp.R
 import com.example.blogapp.adapter.ProfilePostAdapter
 import com.example.blogapp.databinding.FragmentUserProfileBinding
@@ -50,6 +51,10 @@ class UserProfileFragment : Fragment() {
             adapter = ProfilePostAdapter(it)
             binding.allPostsRecyclerView.adapter = adapter
         })
+        binding.editProfileButton.setOnClickListener {
+            val nav = UserProfileFragmentDirections.actionUserProfileFragmentToEditProfileFragment()
+            Navigation.findNavController(it).navigate(nav)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
