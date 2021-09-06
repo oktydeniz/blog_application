@@ -38,6 +38,7 @@ class CommentViewModel(application: Application) : BaseViewModel(application) {
     }
 
     private fun getData(id: Int) {
+        commentList.clear()
         launch {
             val strRequest: StringRequest = object : StringRequest(
                 Method.POST,

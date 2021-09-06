@@ -38,6 +38,7 @@ class HomeViewModel(application: Application) : BaseViewModel(application) {
     }
 
     private fun getDataAPI() {
+        postArrayList.clear()
         launch {
             val strRequestQueue: StringRequest = object : StringRequest(
                 Method.GET, Constants.posts,

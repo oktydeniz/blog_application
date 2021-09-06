@@ -9,7 +9,11 @@
         android:id="@+id/userProfileFragment"
         android:name="com.example.blogapp.views.mainapp.UserProfileFragment"
         android:label="@string/profile"
-        tools:layout="@layout/fragment_user_profile" />
+        tools:layout="@layout/fragment_user_profile" >
+        <action
+            android:id="@+id/action_userProfileFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.example.blogapp.views.mainapp.HomeFragment"
@@ -26,7 +30,11 @@
         android:id="@+id/newPostFragment"
         android:name="com.example.blogapp.views.mainapp.NewPostFragment"
         android:label="@string/post"
-        tools:layout="@layout/fragment_new_post" />
+        tools:layout="@layout/fragment_new_post" >
+        <action
+            android:id="@+id/action_newPostFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
     <fragment
         android:id="@+id/editPostFragment"
         android:name="com.example.blogapp.views.mainapp.EditPostFragment"
@@ -47,5 +55,8 @@
         <argument
             android:name="post_id"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_commentFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
 </navigation>

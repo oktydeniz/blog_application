@@ -16,6 +16,7 @@
     <string name="continue_">continue</string>
 
     <string name="generic_likes"> %s Likes </string>
+    <string name="generic_post_count"> %s Posts </string>
     <string name="generic_comments"> View all %s comments  </string>
     <string name="some_thing_wrong">Some thing wrong</string>
     <string name="send">Send</string>
@@ -28,4 +29,7 @@
     <string name="delete">Delete</string>
     <string name="edit_post">Edit Post</string>
     <string name="update_post">Update Post</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="network_is_not_available">Network is not Available</string>
+    <string name="log_out">Log Out</string>
 </resources>
