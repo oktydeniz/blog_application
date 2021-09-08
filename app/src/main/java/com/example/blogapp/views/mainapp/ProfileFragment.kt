@@ -78,4 +78,16 @@ class UserProfileFragment : Fragment() {
         }
         return super.onOptionsItemSelected(item)
     }
+
+    override fun onHiddenChanged(hidden: Boolean) {
+        if (!hidden) {
+            init()
+        }
+        super.onHiddenChanged(hidden)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        init()
+    }
 }
