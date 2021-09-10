@@ -2,7 +2,6 @@ package com.example.blogapp.adapter
 
 import android.app.AlertDialog
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -149,7 +148,6 @@ class PostsAdapter(
                         e.printStackTrace()
                     }
                 }, Response.ErrorListener {
-                    Log.e("Adapter Log ", "problem occurred, volley error: " + it.message)
 
                 }
 
@@ -158,7 +156,6 @@ class PostsAdapter(
                 override fun getParams(): MutableMap<String, String> {
                     val map = HashMap<String, String>()
                     map["id"] = "$id"
-                    Log.i("Adapter Log ", "getParams: $id ")
                     return map
                 }
 
@@ -168,7 +165,6 @@ class PostsAdapter(
                         c?.getSharedPreferences("user", Context.MODE_PRIVATE)
                             ?.getString("token", "")
                     map["Authorization"] = "Bearer $token"
-                    Log.i("Adapter Log ", "getParams: $token ")
                     return map
                 }
 

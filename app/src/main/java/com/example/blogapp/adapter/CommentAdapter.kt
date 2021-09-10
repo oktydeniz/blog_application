@@ -2,7 +2,6 @@ package com.example.blogapp.adapter
 
 import android.app.AlertDialog
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,7 +19,6 @@ import org.json.JSONObject
 class CommentAdapter(private val list: ArrayList<Comment>) :
     RecyclerView.Adapter<CommentAdapter.ViewHolder>() {
     private lateinit var context: Context
-    private val TAG = "CommentAdapter"
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         context = parent.context
@@ -70,12 +68,10 @@ class CommentAdapter(private val list: ArrayList<Comment>) :
 
                         }
                     } catch (e: Exception) {
-                        Log.i(TAG, "deleteComment:  $id and $position   ${e.localizedMessage}")
                     }
 
 
                 }, Response.ErrorListener {
-                    Log.i(TAG, "deleteComment: Error  ${it.localizedMessage} ")
                 }) {
 
                 override fun getParams(): MutableMap<String, String> {

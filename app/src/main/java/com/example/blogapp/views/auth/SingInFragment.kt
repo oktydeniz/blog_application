@@ -3,7 +3,6 @@ package com.example.blogapp.views.auth
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,8 +24,6 @@ class SingInFragment : Fragment() {
     private var _binding: FragmentSingInBinding? = null
     private val binding get() = _binding!!
     private var volleyRequestQueue: RequestQueue? = null
-    private val TAG = "SingInFragment"
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -55,7 +52,7 @@ class SingInFragment : Fragment() {
             Method.POST, Constants.loginURL,
             Response.Listener { response ->
 
-                // Handle Server response here
+
                 try {
                     val responseObj = JSONObject(response)
                     if (responseObj.getBoolean("success")) {
@@ -72,7 +69,7 @@ class SingInFragment : Fragment() {
                         editor.putInt("id", jsonObject.getInt("id"))
                         editor.putString("lastName", jsonObject.getString("lastName"))
                         editor.putString("photo", jsonObject.getString("photo"))
-                        editor.putBoolean("isLoggedIn",true)
+                        editor.putBoolean("isLoggedIn", true)
                         editor.apply()
 
                         Toast.makeText(
@@ -85,30 +82,17 @@ class SingInFragment : Fragment() {
                         requireActivity().finish()
 
                     }
-                } catch (e: Exception) { // caught while parsing the response
-                    Log.e(TAG, "problem occurred")
-                    Log.e(TAG, "init: ${Constants.loginURL}")
+                } catch (e: Exception) {
+
                     e.printStackTrace()
                 }
             },
-            Response.ErrorListener { volleyError -> // error occurred
-                Log.e(TAG, "problem occurred, volley error: " + volleyError.message)
+            Response.ErrorListener {
             }) {
-
-            /*@Throws(AuthFailureError::class)
-            override fun getHeaders(): Map<String, String> {
-
-                val map: HashMap<String, String> = HashMap()
-                map["Content-Type"] = "application/json; charset=utf-8"
-                map["Accept"] = "application/json"
-                return map
-            }*/
 
             override fun getParams(): Map<String, String> {
                 val map: HashMap<String, String> = HashMap()
                 map["email"] = binding.singInEmailInput.text.toString().trim()
-                Log.i(TAG, "getHeaders: ${binding.singInEmailInput.text.toString().trim()}")
-                Log.i(TAG, "getHeaders: ${binding.singInPasswordInput.text.toString().trim()}")
                 map["password"] = binding.singInPasswordInput.text.toString().trim()
                 return map
             }
@@ -126,6 +110,4 @@ class SingInFragment : Fragment() {
         _binding = null
 
     }
-
-
 }

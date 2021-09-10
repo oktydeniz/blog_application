@@ -15,7 +15,6 @@ class Constants {
         const val likePost = "$homeURL/posts/likes"
         const val comments = "$homeURL/posts/comments"
         const val createComments = "$homeURL/comments/create"
-        const val updateComments = "$homeURL/comments/update"
         const val deleteComments = "$homeURL/comments/delete"
         const val showMyPosts = "$homeURL/posts/my_posts"
         const val logOut = "$homeURL/logout"

@@ -3,7 +3,6 @@ package com.example.blogapp.views.mainapp
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -28,7 +27,6 @@ class EditPostFragment : Fragment() {
     private var _binding: FragmentEditPostBinding? = null
     private val binding get() = _binding!!
     private var post: Post? = null
-    private val TAG = "EditPostFragment"
     private lateinit var sharedPreferences: SharedPreferences
     private var volley: RequestQueue? = null
 
@@ -70,14 +68,12 @@ class EditPostFragment : Fragment() {
                     e.printStackTrace()
                 }
             }, Response.ErrorListener {
-                Log.e(TAG, "problem occurred, volley error: " + it.message)
 
             }) {
             override fun getHeaders(): MutableMap<String, String> {
                 val map = HashMap<String, String>()
                 val token = sharedPreferences.getString("token", "")
                 map["Authorization"] = "Bearer $token"
-                Log.i(TAG, "getHeaders: Bearer $token")
                 return map
             }
 

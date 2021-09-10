@@ -5,7 +5,6 @@ import android.app.Application
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import com.android.volley.DefaultRetryPolicy
@@ -30,7 +29,6 @@ class UserProfileViewModel(application: Application) : BaseViewModel(application
     private val sharedPreferences =
         application.getSharedPreferences("user", Context.MODE_PRIVATE)
     private var volleyRequestQueue: RequestQueue = Volley.newRequestQueue(application)
-    private val TAG = "UserProfileViewModel"
 
     fun getUserData() {
         if (NetworkState.isNetworkAvailable(getApplication())) {
@@ -76,13 +74,10 @@ class UserProfileViewModel(application: Application) : BaseViewModel(application
                             posts.value = postsArray
                         }
                     } catch (e: Exception) {
-                        Log.e(
-                            "UserProfileVM",
-                            "problem occurred, volley error: " + e.localizedMessage
-                        )
+
                     }
                 }, Response.ErrorListener {
-                    Log.e("UserProfileVM", "problem occurred, volley error: " + it.message)
+
                 }
             ) {
                 override fun getHeaders(): MutableMap<String, String> {
@@ -135,11 +130,11 @@ class UserProfileViewModel(application: Application) : BaseViewModel(application
                         }
                     } catch (e: Exception) {
                         e.printStackTrace()
-                        Log.e(TAG, "logOut: ${e.localizedMessage}")
+
                     }
                 },
                 Response.ErrorListener {
-                    Log.i(TAG, "logOut: ${it.localizedMessage}")
+
                 }) {
                 override fun getHeaders(): MutableMap<String, String> {
                     val map = HashMap<String, String>()

@@ -11,7 +11,6 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Base64
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -32,7 +31,6 @@ import com.google.android.material.snackbar.Snackbar
 import org.json.JSONObject
 import java.io.ByteArrayOutputStream
 import java.lang.Exception
-
 class EditProfileFragment : Fragment() {
     private var _binding: FragmentEditProfileBinding? = null
     private val binding get() = _binding!!
@@ -41,7 +39,7 @@ class EditProfileFragment : Fragment() {
     private var bitmap: Bitmap? = null
     private var volley: RequestQueue? = null
     private var userShared: SharedPreferences? = null
-    private val TAG = "EditProfileFragment"
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -141,7 +139,7 @@ class EditProfileFragment : Fragment() {
                     e.printStackTrace()
                 }
             }, Response.ErrorListener {
-                Log.e(TAG, "problem occurred, volley error: " + it.message)
+
             }
         ) {
             override fun getParams(): MutableMap<String, String> {

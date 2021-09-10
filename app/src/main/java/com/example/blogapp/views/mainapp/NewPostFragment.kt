@@ -11,7 +11,6 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Base64
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -41,7 +40,6 @@ class NewPostFragment : Fragment() {
     private lateinit var permissionLauncher: ActivityResultLauncher<String>
     private var bitmap: Bitmap? = null
     private var volley: RequestQueue? = null
-    private val TAG = "NewPostFragment"
     private var sharedPreferences: SharedPreferences? = null
 
 
@@ -151,7 +149,6 @@ class NewPostFragment : Fragment() {
                     e.printStackTrace()
                 }
             }, Response.ErrorListener {
-                Log.e(TAG, "problem occurred, volley error: " + it.message)
 
             }) {
             override fun getParams(): MutableMap<String, String> {

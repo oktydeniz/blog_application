@@ -2,7 +2,6 @@ package com.example.blogapp.viewmodel
 
 import android.app.Application
 import android.content.Context
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.android.volley.DefaultRetryPolicy
 import com.android.volley.RequestQueue
@@ -73,14 +72,10 @@ class HomeViewModel(application: Application) : BaseViewModel(application) {
                         isSuccess.value = true
                         isLoading.value = false
                     } catch (e: Exception) {
-                        Log.e(
-                            "HomeViewModel",
-                            "problem occurred From Try, volley error: " + e.message
-                        )
+
 
                     }
                 }, Response.ErrorListener {
-                    Log.e("HomeViewModel", "problem occurred, volley error: " + it.message)
                     isSuccess.value = false
                     isLoading.value = false
                 }

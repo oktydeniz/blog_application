@@ -2,7 +2,6 @@ package com.example.blogapp.viewmodel
 
 import android.app.Application
 import android.content.Context
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.android.volley.DefaultRetryPolicy
 import com.android.volley.RequestQueue
@@ -57,7 +56,7 @@ class CommentViewModel(application: Application) : BaseViewModel(application) {
                                     (userObject.getString("name") + " " + userObject.getString("lastName")),
                                     userObject.getString("photo")
                                 )
-                                Log.i("CommentViewModel", "get.user: $user")
+
                                 val comment = Comment(
                                     commentObject.getInt("id"),
                                     commentObject.getString("comment"),
@@ -65,21 +64,16 @@ class CommentViewModel(application: Application) : BaseViewModel(application) {
                                     user
                                 )
                                 commentList.add(comment)
-                                Log.i("CommentViewModel", "getData: " + commentList.size)
+
                             }
                             commentLiveData.value = commentList
                         }
                         isSuccess.value = true
                         isLoading.value = false
                     } catch (e: Exception) {
-                        Log.e(
-                            "CommentViewModel",
-                            "problem occurred From Try, volley error: " + e.message
-                        )
                     }
 
                 }, Response.ErrorListener {
-                    Log.e("CommentViewModel", "problem occurred, volley error: " + it.message)
                     isSuccess.value = false
                     isLoading.value = false
                 }
@@ -88,20 +82,14 @@ class CommentViewModel(application: Application) : BaseViewModel(application) {
                 override fun getHeaders(): MutableMap<String, String> {
                     val map = HashMap<String, String>()
                     map["Authorization"] = "Bearer $sharedPreferences"
-                    Log.i(
-                        "  CommentViewModel Authorization",
-                        "getHeaders:  Bearer $sharedPreferences"
-                    )
+
                     return map
                 }
 
                 override fun getParams(): MutableMap<String, String> {
                     val map = HashMap<String, String>()
                     map["id"] = "$id"
-                    Log.i(
-                        "  CommentViewModel Authorization",
-                        "getHeaders:  Bearer $id"
-                    )
+
                     return map
                 }
 
@@ -131,7 +119,7 @@ class CommentViewModel(application: Application) : BaseViewModel(application) {
                                     (user.getString("name") + " " + user.getString("lastName")),
                                     user.getString("photo")
                                 )
-                                Log.i("CommentViewModel", "get.user: $user")
+
                                 val commentNew = Comment(
                                     newComment.getInt("id"),
                                     newComment.getString("comment"),
@@ -144,17 +132,11 @@ class CommentViewModel(application: Application) : BaseViewModel(application) {
 
                         } catch (e: Exception) {
                             e.printStackTrace()
-                            Log.e(
-                                "CommentViewModel new Comment",
-                                "problem occurred, volley error: " + e.message
-                            )
+
                         }
                     },
                     Response.ErrorListener {
-                        Log.e(
-                            "CommentViewModel new Comment",
-                            "problem occurred, volley error: " + it.message
-                        )
+
                     }) {
                     override fun getParams(): MutableMap<String, String> {
                         val map = HashMap<String, String>()

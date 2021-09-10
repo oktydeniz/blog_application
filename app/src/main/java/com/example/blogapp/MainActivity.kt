@@ -20,13 +20,8 @@ class MainActivity : AppCompatActivity() {
         if (isLogged) {
             startActivity(Intent(this@MainActivity, AppActivity::class.java))
             finish()
-        } else {
-            isFirstTime()
         }
 
     }
 
-    private fun isFirstTime() {
-
-    }
 }
